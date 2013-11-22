@@ -36,7 +36,7 @@ struct Device: public node::ObjectWrap {
 	protected:
 		static std::map<libusb_device*, Persistent<Value> > byPtr;
 		Device(libusb_device* d);
-		static void weakCallback(Persistent<Value> object, void *parameter);
+		static void weakCallback(Isolate * isolate, Persistent<Value> * object, libusb_device * parameter);
 };
 
 
