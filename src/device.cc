@@ -36,10 +36,10 @@ Handle<Value> Device::get(libusb_device* dev){
 }
 
 // Callback to remove an instance from the cache map when V8 wants to GC it
-void Device::weakCallback(Persistent<Value> object, void *parameter){
-	byPtr.erase(static_cast<libusb_device*>(parameter));
-	object.Dispose();
-	object.Clear();
+void Device::weakCallback(Isolate* isolate, Persistent<Value> * object, libusb_device* parameter){
+	byPtr.erase(parameter);
+	object->Dispose();
+	object->Clear();
 	DEBUG_LOG("Removed cached device %p", parameter);
 }
 
